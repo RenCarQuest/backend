@@ -15,6 +15,4 @@ async function allUsers(req, res) {
     }
 }
 
-module.exports = {
-  allUsers
-};
+module.exports = allUsers
