@@ -14,7 +14,12 @@ async function createCar(req, res) {
             availability,
             licensePlate,
             images,
-            description
+            description,
+            typeOfUse,
+            mileage,
+            carType,
+            drivetrain,
+            fuelPolicy
         } = req.body;
 
         const newCar = new CarDetails({
@@ -29,7 +34,12 @@ async function createCar(req, res) {
             availability,
             licensePlate,
             images,
-            description
+            description,
+            typeOfUse,
+            mileage,
+            carType,
+            drivetrain,
+            fuelPolicy
         });
 
         await newCar.save();
@@ -41,4 +51,4 @@ async function createCar(req, res) {
     }
 }
 
-module.exports = createCar
+module.exports = createCar;
