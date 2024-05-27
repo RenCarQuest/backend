@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const BlacklistTokenModel = require('../../../models/blackListTokenModel');
+const BlacklistTokenModel = require('../../../models/blacklistTokenModel');
 
 async function logoutUser(req, res) {
     try {
