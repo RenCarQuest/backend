@@ -1,3 +1,4 @@
+require('dotenv').config();  // Asegúrate de cargar las variables de entorno
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../../models/userModel');
@@ -17,7 +18,7 @@ async function loginUser(req, res) {
             return res.status(401).json({ error: 'Credenciales incorrectas' });
         }
 
-        const token = jwt.sign({ userId: user._id }, 'your_secret_secret', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.status(200).json({ token });
     } catch (error) {
@@ -26,5 +27,4 @@ async function loginUser(req, res) {
     }
 }
 
-module.exports = loginUser
-
+module.exports = loginUser;

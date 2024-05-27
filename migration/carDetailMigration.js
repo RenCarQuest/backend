@@ -1,22 +1,22 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const CarDetails = require('../models/carDetailsModel');
 
-mongoose.connect('mongodb+srv://businesscarquest:gV1Pm7iPLFi9AU7h@cluster0.nwkuccm.mongodb.net/', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB Connected'))
-.catch(err => console.log(err));
+const uri = process.env.MONGODB_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => console.log(err));
 
 const createFakeCars = async () => {
     const numberOfCars = 12;
-    const imageUrls = ["https://cdn.autobild.es/sites/navi.axelspringer.es/public/media/image/2015/03/404013-bentley-continental-gt-speed-convertible-lateral.jpg?tf=1200x", 
-    "https://carnovo.com/wp-content/uploads/2018/09/Lateral-del-BMW-X5-45e-iPerformance-2019.jpg", 
-    "https://www.carsized.com/resources/bmw/4/gc/2014/sl_234097143_bmw-4-2014-side-view_4x.png",
-    "https://www.carsized.com/resources/bmw/6/ca/2011/sl_231119153_bmw-6-2011-side-view_4x.png",
-    "https://www.megautos.com/wp-content/uploads/2017/06/BMW-X3-2018-lateral-1024x669.jpg",
-    "https://www.carsized.com/resources/bmw/x1/d/2015/sl_271114133_bmw-x1-2015-side-view_4x.png"
-  ];
+    const imageUrls = [
+        "https://cdn.autobild.es/sites/navi.axelspringer.es/public/media/image/2015/03/404013-bentley-continental-gt-speed-convertible-lateral.jpg?tf=1200x", 
+        "https://carnovo.com/wp-content/uploads/2018/09/Lateral-del-BMW-X5-45e-iPerformance-2019.jpg", 
+        "https://www.carsized.com/resources/bmw/4/gc/2014/sl_234097143_bmw-4-2014-side-view_4x.png",
+        "https://www.carsized.com/resources/bmw/6/ca/2011/sl_231119153_bmw-6-2011-side-view_4x.png",
+        "https://www.megautos.com/wp-content/uploads/2017/06/BMW-X3-2018-lateral-1024x669.jpg",
+        "https://www.carsized.com/resources/bmw/x1/d/2015/sl_271114133_bmw-x1-2015-side-view_4x.png"
+    ];
     const brands = ["Toyota", "Ford", "Honda", "Chevrolet", "Tesla"];
     const models = ["Camry", "F-150", "Civic", "Impala", "Model S"];
     const colors = ["red", "blue", "green", "black", "white"];

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -7,7 +8,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3014;
 
-const uri = 'mongodb+srv://businesscarquest:gV1Pm7iPLFi9AU7h@cluster0.nwkuccm.mongodb.net/';
+const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Conexión establecida con MongoDB Atlas');
