@@ -8,7 +8,7 @@ userRoutes.post('/login', loginUser);
 userRoutes.post('/logout', logoutUser);
 userRoutes.delete('/delete/:id', deleteUser);
 userRoutes.get('/all', allUsers);
-userRoutes.post('/change-password', changePassword);
+userRoutes.post('/change-password', authenticateToken, changePassword);
 userRoutes.get('/checkSession', authenticateToken, (req, res) => {
   res.json({ message: 'Sesión válida' });
 });
