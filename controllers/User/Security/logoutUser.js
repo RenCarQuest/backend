@@ -4,7 +4,7 @@ const BlacklistTokenModel = require('../../../models/blackListTokenModel');
 
 async function logoutUser(req, res) {
     try {
-        const { token } = req.body;
+        const token = req.header('Authorization')?.replace('Bearer ', '');
 
         if (!token) {
             return res.status(400).json({ error: 'Falta el token en la solicitud' });
@@ -15,6 +15,12 @@ async function logoutUser(req, res) {
             if (err) {
                 console.error('Error al verificar el token:', err);
                 return res.status(401).json({ error: 'Token no válido' });
+            }
+
+            // Verificar si el token ya está en la lista negra
+            const tokenExists = await BlacklistTokenModel.findOne({ token });
+            if (tokenExists) {
+                return res.status(400).json({ error: 'Ya se ha cerrado esta sesión' });
             }
 
             // Añadir el token a la lista negra
