@@ -1,53 +1,25 @@
-const mongoose = require('mongoose');
+const InterestedPerson = require('../../models/interestedPersonModel');
 
-const interestedPersonSchema = new mongoose.Schema({
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    lastName: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        lowercase: true,
-        match: [/.+\@.+\..+/, 'Please fill a valid email address']
-    },
-    phone: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    country: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    city: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    howFoundUs: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    interestedAsHost: {
-        type: Boolean,
-        required: true
+async function registerInterest(req, res) {
+    try {
+        const { name, email, phone } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ error: 'Email is required' });
+        }
+
+        const newInterest = new InterestedPerson({
+            name,
+            email,
+            phone
+        });
+
+        await newInterest.save();
+        res.status(201).json({ message: 'Interest registered successfully', data: newInterest });
+    } catch (error) {
+        console.error('Failed to register interest:', error);
+        res.status(500).json({ error: 'An error occurred during the registration process' });
     }
-});
+}
 
-const InterestedPerson = mongoose.model('InterestedPerson', interestedPersonSchema);
-
-module.exports = InterestedPerson;
+module.exports = registerInterest;

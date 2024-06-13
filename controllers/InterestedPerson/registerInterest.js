@@ -2,21 +2,22 @@ const InterestedPerson = require('../../models/interestedPersonModel');
 
 async function registerInterest(req, res) {
     try {
-        const { name, lastName, email, phone, country, city, howFoundUs, interestedAsHost } = req.body;
+        const { name, email, phone } = req.body;
 
-        if (!name || !lastName || !email || !country || !city || interestedAsHost === undefined) {
-            return res.status(400).json({ error: 'Please provide all required fields' });
+        if (!email) {
+            return res.status(400).json({ error: 'Email is required' });
+        }
+
+        // Check if email already exists
+        const existingPerson = await InterestedPerson.findOne({ email });
+        if (existingPerson) {
+            return res.status(400).json({ error: 'Email already registered' });
         }
 
         const newInterest = new InterestedPerson({
             name,
-            lastName,
             email,
-            phone,
-            country,
-            city,
-            howFoundUs,
-            interestedAsHost
+            phone
         });
 
         await newInterest.save();
@@ -28,4 +29,3 @@ async function registerInterest(req, res) {
 }
 
 module.exports = registerInterest;
-
