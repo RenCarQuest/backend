@@ -30,10 +30,10 @@ function isPasswordComplex(password) {
 
 async function registerUser(req, res) {
     try {
-        const { name, email, password } = req.body;
+        const { firstName, lastName, email, password, phoneNumber } = req.body;
 
         // Verificar que todos los campos estén presentes y no sean nulos
-        if (!name || !email || !password) {
+        if (!firstName || !lastName || !email || !password || !phoneNumber) {
             return res.status(400).json({ error: 'Faltan datos en el cuerpo de la solicitud' });
         }
 
@@ -57,9 +57,11 @@ async function registerUser(req, res) {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new UserModel({
-            name,
+            firstName,
+            lastName,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            phoneNumber
         });
 
         // Agregar la nueva contraseña al historial

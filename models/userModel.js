@@ -2,14 +2,22 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    alias: { type: String },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     passwordHistory: [{ type: String }],
-    failedLoginAttempts: { type: Number, default: 0 },  // Rastrea los intentos fallidos
-    isLocked: { type: Boolean, default: false },  // Indica si la cuenta está bloqueada
-    lockUntil: { type: Date },  // Tiempo hasta que la cuenta esté bloqueada
-    createdAt: { type: Date, default: Date.now }
+    failedLoginAttempts: { type: Number, default: 0 },
+    isLocked: { type: Boolean, default: false },
+    lockUntil: { type: Date },
+    createdAt: { type: Date, default: Date.now },
+    phoneNumber: { type: String, required: true },
+});
+
+userSchema.pre('save', function(next) {
+    this.alias = `${this.firstName} ${this.lastName}`;
+    next();
 });
 
 userSchema.methods.isPasswordInHistory = async function(newPassword) {
