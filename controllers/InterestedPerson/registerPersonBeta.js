@@ -49,9 +49,9 @@ async function registerPersonBeta(req, res) {
             return res.status(400).json({ error: 'El nombre de la ciudad es demasiado largo', code: 'VAL012' });
         }
 
-        if (!/^[a-zA-Z\s]+$/.test(city)) {
-            return res.status(400).json({ error: 'El nombre de la ciudad contiene caracteres no permitidos', code: 'VAL013' });
-        }
+        if (!/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ]+$/.test(city)) {
+          return res.status(400).json({ error: 'El nombre de la ciudad contiene caracteres no permitidos', code: 'VAL013' });
+      }
 
         if (carBrand.length > 40) {
             return res.status(400).json({ error: 'La marca del coche es demasiado larga', code: 'VAL014' });
@@ -59,10 +59,6 @@ async function registerPersonBeta(req, res) {
 
         if (carModel.length > 40) {
             return res.status(400).json({ error: 'El modelo del coche es demasiado largo', code: 'VAL016' });
-        }
-
-        if (!/^[a-zA-Z\s]+$/.test(carModel)) {
-            return res.status(400).json({ error: 'El modelo del coche contiene caracteres no permitidos', code: 'VAL017' });
         }
 
         // Verificar si el correo electrónico ya existe
