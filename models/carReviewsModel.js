@@ -24,4 +24,4 @@ const CarReviewsSchema = new Schema({
     timestamps: true
     });
 
-modelo.exports = mongoose.model('CarReviews', CarReviewsSchema);
+module.exports = mongoose.model('CarReviews', CarReviewsSchema);
