@@ -42,7 +42,8 @@ const createCarReview = async (req, res) => {
         return res.status(201).json(carReview);
     } catch (error) {
         console.error("Error creating review:", error);
-        res.status(500).json({ message: "Error creating review:", error: error.message });
+        res.status(500).json({ message: "Error creating review", error: error.message });
     }
+};
 
-}
+module.exports = createCarReview;

@@ -10,8 +10,4 @@ module.exports = {
     getCarReviewById,
     updateCarReview,
     deleteCarReview
-    }
-
-
-
-
+};

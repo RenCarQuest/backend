@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const carReviewsModel = require('../../models/carReviewsModel');
 
 const getCarReviews = async (req, res) => {
@@ -6,7 +7,7 @@ const getCarReviews = async (req, res) => {
     try {
         // Verifica que el ID sea un ObjectId válido
         if (!mongoose.Types.ObjectId.isValid(carId)) {
-            return res.status(400).json({ message: 'Invalid car ID' });
+            return res.status(400).json({ message: 'Invalid car ID' + carId});
         }
 
         // Busca todas las reseñas para el coche especificado
